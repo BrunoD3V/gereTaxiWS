@@ -74,6 +74,7 @@ public class GereServico {
                 servico.setHorasDeEspera(rSet.getString("horasDeEspera"));
                 servico.setNumPassageiros(rSet.getInt("numPassageiros"));
                 servico.setCustoPortagens(rSet.getString("custoPortagens"));
+                servico.setTipo(rSet.getString("tipo"));
                 servico.setIdMotorista(rSet.getInt("idMotorista"));
                 
                 lista.add(servico);

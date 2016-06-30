@@ -71,8 +71,6 @@ public class GereLogins {
     }
     
     public int checkLogin(String email, String password) {
-        
-        
         try {
             Connection connection = GereBD.getConnection();
             
@@ -102,7 +100,5 @@ public class GereLogins {
             return -2;
         }
         
-    }
-    
-    
+    }  
 }
