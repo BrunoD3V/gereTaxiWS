@@ -46,9 +46,9 @@ public class GereCliente {
         try {
             Connection connection = GereBD.getConnection();
   
-            String query = "DELETE FROM cliente WHERE id = ? and idMotorista = ?";
+            String query = "DELETE FROM cliente WHERE nome = ? and idMotorista = ?";
             PreparedStatement ppStmt = connection.prepareStatement(query);
-            ppStmt.setInt(1, cliente.getId());
+            ppStmt.setString(1, cliente.getNome());
             ppStmt.setInt(2, cliente.getIdMotorista());
             ppStmt.executeUpdate();
             
