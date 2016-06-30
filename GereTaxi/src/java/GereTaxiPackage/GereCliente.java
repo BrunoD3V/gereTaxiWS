@@ -12,7 +12,7 @@ public class GereCliente {
     
     public boolean inserirCliente(String nome, String morada, String codigoPostal, int nif, int contacto, String email, String tipo, int idMotorista){
         boolean result = false;
-        if(this.pesquisarCliente(nome)== null){
+        if(this.pesquisarCliente(nome,idMotorista)== null){
             try {
             Connection connection = GereBD.getConnection();
   
@@ -46,10 +46,10 @@ public class GereCliente {
         try {
             Connection connection = GereBD.getConnection();
   
-            String query = "DELETE FROM cliente WHERE id = ?";
+            String query = "DELETE FROM cliente WHERE id = ? and idMotorista = ?";
             PreparedStatement ppStmt = connection.prepareStatement(query);
             ppStmt.setInt(1, cliente.getId());
-                       
+            ppStmt.setInt(2, cliente.getIdMotorista());
             ppStmt.executeUpdate();
             
             connection.close();
@@ -61,18 +61,18 @@ public class GereCliente {
         return true;
     }
     
-    public boolean excluirCliente(String nomeCliente){
-       return excluirCliente(new Cliente(nomeCliente));
+    public boolean excluirCliente(String nomeCliente, int idMotorista){
+       return excluirCliente(new Cliente(nomeCliente,idMotorista));
     }
     
-    public ArrayList<Cliente> listarClientes(){
+    public ArrayList<Cliente> listarClientes(int idMotorista){
         ArrayList<Cliente> lista = new ArrayList<>();
         try {
             Connection connection = GereBD.getConnection();
   
-            String query = "SELECT * FROM cliente";
+            String query = "SELECT * FROM cliente WHERE idMotorista = ?";
             PreparedStatement ppStmt = connection.prepareStatement(query);
-            
+            ppStmt.setInt(1,idMotorista);
             ResultSet rSet = ppStmt.executeQuery();
             while(rSet.next()){
                 Cliente cliente = new Cliente();
@@ -98,15 +98,16 @@ public class GereCliente {
         return lista;
     }
     
-    public Cliente pesquisarCliente(String nome){
+    public Cliente pesquisarCliente(String nome, int idMotorista){
         Cliente cliente= null;
         try {
             Connection connection = GereBD.getConnection();
             
             
-            String query = "SELECT * FROM cliente WHERE nome = ?";
+            String query = "SELECT * FROM cliente WHERE nome = ? and idMotorista = ?";
             PreparedStatement ppStmt = connection.prepareStatement(query);
             ppStmt.setString(1, nome);
+            ppStmt.setInt(2,idMotorista);
             
             ResultSet rSet = ppStmt.executeQuery();
             if(rSet.next()){

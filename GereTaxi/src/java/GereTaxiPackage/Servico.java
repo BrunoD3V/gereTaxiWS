@@ -17,8 +17,9 @@ public class Servico {
     private String custoPortagens;
     private int idMotorista;
 
-    public Servico(String processo) {
+    public Servico(String processo, int idMotorista) {
         this.processo = processo;
+        this.idMotorista = idMotorista;
     }
 
     public Servico() {

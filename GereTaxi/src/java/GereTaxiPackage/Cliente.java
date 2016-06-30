@@ -23,8 +23,9 @@ public class Cliente {
         this.idMotorista = idMotorista;
     }
     
-    public Cliente(String nome) {
+    public Cliente(String nome, int idMotorista) {
         this.nome = nome;
+        this.idMotorista = idMotorista;
     }
      
     public int getId() {

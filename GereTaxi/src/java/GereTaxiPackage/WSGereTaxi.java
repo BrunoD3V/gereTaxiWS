@@ -61,26 +61,30 @@ public class WSGereTaxi {
     }
     
     @WebMethod(operationName = "pesquisarServicosPorCliente")
-    public ArrayList<Servico> pesquisarServicosPorCliente(@WebParam(name = "nomeCliente") String nomeCliente){
+    public ArrayList<Servico> pesquisarServicosPorCliente(@WebParam(name = "nomeCliente") String nomeCliente,
+            @WebParam(name = "idMotorista") int idMotorista){
         GereServico BD = new GereServico();
-        return BD.pesquisarServicosPorCliente(nomeCliente);
+        return BD.pesquisarServicosPorCliente(nomeCliente,idMotorista);
     }
+    
     @WebMethod(operationName = "excluirServico")
-    public Boolean excluirServico(@WebParam(name = "processo") String processo){
+    public Boolean excluirServico(@WebParam(name = "processo") String processo,
+            @WebParam(name = "idMotorista") int idMotorista){
         GereServico BD = new GereServico();
-        return BD.excluirServico(processo);
+        return BD.excluirServico(processo,idMotorista);
     }
     
     @WebMethod(operationName = "pesquisarServico")
-    public Servico pesquisarServico(@WebParam(name = "processo") String processo){
+    public Servico pesquisarServico(@WebParam(name = "processo") String processo,
+            @WebParam(name = "idMotorista") int idMotorista){
         GereServico BD = new GereServico();
-        return BD.pesquisarServico(processo);
+        return BD.pesquisarServico(processo,idMotorista);
     }
     
     @WebMethod(operationName = "listarServicos")
-    public ArrayList<Servico> listarServicos(){
+    public ArrayList<Servico> listarServicos(@WebParam(name = "idMotorista") int idMotorista){
         GereServico BD = new GereServico();
-        return BD.listarServico();
+        return BD.listarServico(idMotorista);
     }
 
 ///////////////GESTÃO DE CLIENTES/////////
@@ -99,22 +103,22 @@ public class WSGereTaxi {
     }
     
     @WebMethod(operationName = "excluirCliente")
-    public Boolean excluirCliente(@WebParam(name = "nome")String nome){
+    public Boolean excluirCliente(@WebParam(name = "nome")String nome,
+            @WebParam(name = "idMotorista") int idMotorista){
         GereCliente BD = new GereCliente();
-        return BD.excluirCliente(nome);
+        return BD.excluirCliente(nome,idMotorista);
     }
     
     @WebMethod(operationName = "listarClientes")
-    public ArrayList<Cliente> listarClientes(){
+    public ArrayList<Cliente> listarClientes(@WebParam(name = "idMotorista")int idMotorista){
         GereCliente BD = new GereCliente();
-        return BD.listarClientes();
+        return BD.listarClientes(idMotorista);
     }
     
     @WebMethod(operationName = "pesquisarCliente")
-    public Cliente pesquisarCliente(@WebParam(name = "nome") String nome){
+    public Cliente pesquisarCliente(@WebParam(name = "nome") String nome,
+            @WebParam(name = "idMotorista") int idMotorista){
         GereCliente BD = new GereCliente();
-        return BD.pesquisarCliente(nome);
+        return BD.pesquisarCliente(nome,idMotorista);
     }
-
-    
 }

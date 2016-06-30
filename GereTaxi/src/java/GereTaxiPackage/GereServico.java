@@ -14,7 +14,7 @@ public class GereServico {
             String data, String origem, String destino, String trajeto, String distancia,
             String horasDeEspera,int numPassageiros, String custoPortagens, int idMotorista){
         
-        //if(this.pesquisarServico(servico.getProcesso())==null){
+        if(this.pesquisarServico(processo,idMotorista)==null){
             try {
             Connection connection = GereBD.getConnection();
   
@@ -43,18 +43,19 @@ public class GereServico {
             Logger.getLogger(GereServico.class.getName()).log(Level.SEVERE, null, ex);
             return false;
             }
-       // }
+        }
         return true;
         
     }
     
-    public ArrayList<Servico> listarServico(){
+    public ArrayList<Servico> listarServico(int idMotorista){
         ArrayList<Servico> lista = new ArrayList<>();
         try {
             Connection connection = GereBD.getConnection();
   
-            String query = "SELECT * FROM servico";
+            String query = "SELECT * FROM servico WHERE idMotorista = ?";
             PreparedStatement ppStmt = connection.prepareStatement(query);
+            ppStmt.setInt(1, idMotorista);
             
             ResultSet rSet = ppStmt.executeQuery();
             while(rSet.next()){
@@ -82,7 +83,6 @@ public class GereServico {
         } catch (SQLException ex) {
             Logger.getLogger(GereCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         return lista;
     }
     
@@ -91,10 +91,10 @@ public class GereServico {
        try {
             Connection connection = GereBD.getConnection();
   
-            String query = "DELETE FROM servico WHERE processo = ?";
+            String query = "DELETE FROM servico WHERE processo = ? and idMotorista = ?";
             PreparedStatement ppStmt = connection.prepareStatement(query);
             ppStmt.setString(1, servico.getProcesso());
-                       
+            ppStmt.setInt(2, servico.getIdMotorista());
             ppStmt.executeUpdate();
             
             connection.close();
@@ -106,19 +106,20 @@ public class GereServico {
         return true;
     }
     
-    public boolean excluirServico(String processo){
-       return excluirServico(new Servico(processo));
+    public boolean excluirServico(String processo, int idMotorista){
+       return excluirServico(new Servico(processo,idMotorista));
     }
     
  
-    public Servico pesquisarServico(String processo){
+    public Servico pesquisarServico(String processo, int idMotorista){
         Servico servico = null;
          try {
             Connection connection = GereBD.getConnection();
   
-            String query = "SELECT * FROM servico WHERE processo = ?";
+            String query = "SELECT * FROM servico WHERE processo = ? and idMotorista = ?";
             PreparedStatement ppStmt = connection.prepareStatement(query);
             ppStmt.setString(1, processo);
+            ppStmt.setInt(2, idMotorista);
             
             ResultSet rSet = ppStmt.executeQuery();
             if(rSet.next()){
@@ -150,16 +151,17 @@ public class GereServico {
         
         return servico;
     }
-    public ArrayList<Servico> pesquisarServicosPorCliente(String nomeCliente){
+    public ArrayList<Servico> pesquisarServicosPorCliente(String nomeCliente, int idMotorista){
         ArrayList<Servico> lista = new ArrayList<>();
         try {
             Connection connection = GereBD.getConnection();
             
-            String query = "SELECT * FROM servico WHERE nomeCliente = ?";
+            String query = "SELECT * FROM servico WHERE nomeCliente = ? and idMotorista = ?";
             
             PreparedStatement ppStmt = connection.prepareStatement(query);
             
             ppStmt.setString(1, nomeCliente);
+            ppStmt.setInt(2, idMotorista);
             
             ResultSet rSet = ppStmt.executeQuery();
             while(rSet.next()){
