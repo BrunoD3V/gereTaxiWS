@@ -27,13 +27,13 @@ public interface WSGereTaxi {
 
     /**
      * 
-     * @param contacto
-     * @param tipo
      * @param codigoPostal
-     * @param nome
+     * @param contacto
      * @param nif
-     * @param email
      * @param morada
+     * @param email
+     * @param tipo
+     * @param nome
      * @return
      *     returns java.lang.Boolean
      */
@@ -75,8 +75,8 @@ public interface WSGereTaxi {
 
     /**
      * 
-     * @param password
      * @param email
+     * @param password
      * @return
      *     returns int
      */
@@ -135,18 +135,18 @@ public interface WSGereTaxi {
 
     /**
      * 
-     * @param horaDeInicio
-     * @param tipo
-     * @param data
+     * @param destino
+     * @param distancia
      * @param custoPortagens
      * @param processo
-     * @param numPassageiros
-     * @param distancia
      * @param horasDeEspera
-     * @param origem
      * @param trajeto
+     * @param numPassageiros
+     * @param tipo
+     * @param data
+     * @param horaDeInicio
+     * @param origem
      * @param nomeCliente
-     * @param destino
      * @return
      *     returns java.lang.Boolean
      */
@@ -210,8 +210,8 @@ public interface WSGereTaxi {
 
     /**
      * 
-     * @param password
      * @param email
+     * @param password
      * @return
      *     returns boolean
      */

@@ -60,6 +60,11 @@ public class WSGereTaxi {
         return BD.inserirServico(processo, nomeCliente,tipo,horaDeInicio,data,origem,destino,trajeto,distancia,horasDeEspera,numPassageiros,custoPortagens, idMotorista);
     }
     
+    @WebMethod(operationName = "pesquisarServicosPorCliente")
+    public ArrayList<Servico> pesquisarServicosPorCliente(@WebParam(name = "nomeCliente") String nomeCliente){
+        GereServico BD = new GereServico();
+        return BD.pesquisarServicosPorCliente(nomeCliente);
+    }
     @WebMethod(operationName = "excluirServico")
     public Boolean excluirServico(@WebParam(name = "processo") String processo){
         GereServico BD = new GereServico();

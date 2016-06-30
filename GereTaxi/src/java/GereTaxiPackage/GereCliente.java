@@ -10,8 +10,6 @@ import java.util.logging.Logger;
 
 public class GereCliente {
     
-    
-    
     public boolean inserirCliente(String nome, String morada, String codigoPostal, int nif, int contacto, String email, String tipo, int idMotorista){
         boolean result = false;
         if(this.pesquisarCliente(nome)== null){
@@ -104,7 +102,8 @@ public class GereCliente {
         Cliente cliente= null;
         try {
             Connection connection = GereBD.getConnection();
-  
+            
+            
             String query = "SELECT * FROM cliente WHERE nome = ?";
             PreparedStatement ppStmt = connection.prepareStatement(query);
             ppStmt.setString(1, nome);
@@ -112,7 +111,6 @@ public class GereCliente {
             ResultSet rSet = ppStmt.executeQuery();
             if(rSet.next()){
                 cliente = new Cliente();
-                
                 cliente.setId(rSet.getInt("id"));
                 cliente.setNome(rSet.getString("nome"));
                 cliente.setMorada(rSet.getString("morada"));
