@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jws.WebService;
@@ -44,7 +45,6 @@ public class WSGereTaxi {
     public Boolean inserirServico(@WebParam(name = "processo") String processo, 
             @WebParam(name = "nomeCliente") String nomeCliente,
             @WebParam(name = "idMotorista")int idMotorista,
-            
             @WebParam(name = "horaDeInicio") String horaDeInicio,
             @WebParam(name = "data") String data,
             @WebParam(name = "origem") String origem,
@@ -82,7 +82,7 @@ public class WSGereTaxi {
     }
     
     @WebMethod(operationName = "listarServicos")
-    public ArrayList<Servico> listarServicos(@WebParam(name = "idMotorista") int idMotorista){
+    public List<Servico> listarServicos(@WebParam(name = "idMotorista") int idMotorista){
         GereServico BD = new GereServico();
         return BD.listarServico(idMotorista);
     }
@@ -120,5 +120,40 @@ public class WSGereTaxi {
             @WebParam(name = "idMotorista") int idMotorista){
         GereCliente BD = new GereCliente();
         return BD.pesquisarCliente(nome,idMotorista);
+    }
+    
+    @WebMethod(operationName = "atualizarCliente")
+    public boolean atualizarCliente(@WebParam(name = "id") int id,
+            @WebParam(name = "nome") String nome,
+            @WebParam(name = "morada") String morada,
+            @WebParam(name = "codigoPostal") String codigoPostal,
+            @WebParam(name = "nif") int nif,
+            @WebParam(name = "contacto") int contacto,
+            @WebParam(name = "email") String email,
+            @WebParam(name = "tipo") String tipo,
+            @WebParam(name = "idMotorista")int idMotorista){
+        GereCliente BD = new GereCliente();
+        return BD.atualizarCliente(id, nome, morada, codigoPostal, nif, contacto, email, tipo, idMotorista);
+    }
+    @WebMethod(operationName = "atualizarServico")
+    public boolean atualizarServico(@WebParam(name = "id") int id,
+            @WebParam(name = "processo") String processo, 
+            @WebParam(name = "nomeCliente") String nomeCliente,
+            @WebParam(name = "tipo") String tipo,
+            @WebParam(name = "horaDeInicio") String horaDeInicio,
+            @WebParam(name = "data") String data,
+            @WebParam(name = "origem") String origem,
+            @WebParam(name = "destino") String destino,
+            @WebParam(name = "trajeto") String trajeto,
+            @WebParam(name = "distancia") String distancia,
+            @WebParam(name = "horasDeEspera") String horasDeEspera,
+            @WebParam(name = "numPassageiros") int numPassageiros,
+            @WebParam(name = "custoPortagens") String custoPortagens,
+            @WebParam(name = "idMotorista")int idMotorista){
+        
+        GereServico BD = new GereServico();
+        return BD.atualizarServico( id,  processo,  nomeCliente,  tipo,  horaDeInicio, 
+             data,  origem,  destino,  trajeto,  distancia,
+             horasDeEspera, numPassageiros,  custoPortagens,  idMotorista);
     }
 }

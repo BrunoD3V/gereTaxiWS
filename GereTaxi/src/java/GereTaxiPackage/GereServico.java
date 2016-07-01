@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -48,11 +49,12 @@ public class GereServico {
         
     }
     
-    public ArrayList<Servico> listarServico(int idMotorista){
-        ArrayList<Servico> lista = new ArrayList<>();
+    public List<Servico> listarServico(int idMotorista){
+        List<Servico> lista = new ArrayList<>();
         try {
             Connection connection = GereBD.getConnection();
   
+            System.out.println("IdMotorista = " + idMotorista);
             String query = "SELECT * FROM servico WHERE idMotorista = ?";
             PreparedStatement ppStmt = connection.prepareStatement(query);
             ppStmt.setInt(1, idMotorista);
@@ -193,4 +195,43 @@ public class GereServico {
         
         return lista;
     }
+    
+    public boolean atualizarServico(int id, String processo, String nomeCliente, String tipo, String horaDeInicio, 
+            String data, String origem, String destino, String trajeto, String distancia,
+            String horasDeEspera,int numPassageiros, String custoPortagens, int idMotorista){
+        
+        try {
+            Connection connection = GereBD.getConnection();
+  
+            String query = "UPDATE servico SET processo = ?, nomecliente = ?, tipo = ?, horadeinicio = ?, data = ?, origem = ?, destino = ? , trajeto = ? , distancia = ? , horasdeespera = ? , numpassageiros = ? , custoportagens = ? WHERE id = ? and idmotorista = ?";
+            
+            PreparedStatement ppStmt = connection.prepareStatement(query);
+            
+            ppStmt.setString(1, processo);
+            ppStmt.setString(2, nomeCliente);
+            ppStmt.setString(3, tipo);
+            ppStmt.setString(4, horaDeInicio);
+            ppStmt.setString(5, data);
+            ppStmt.setString(6, origem);
+            ppStmt.setString(7, destino);
+            ppStmt.setString(8, trajeto);
+            ppStmt.setString(9, distancia);
+            ppStmt.setString(10, horasDeEspera);
+            ppStmt.setInt(11, numPassageiros);
+            ppStmt.setString(12, custoPortagens);
+            ppStmt.setInt(13,id);
+            ppStmt.setInt(14, idMotorista);
+              
+            ppStmt.executeUpdate();
+            
+            connection.close();
+            } catch (SQLException ex) {
+            Logger.getLogger(GereServico.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+            }
+        
+        return true;
+        
+    }
+    
 }

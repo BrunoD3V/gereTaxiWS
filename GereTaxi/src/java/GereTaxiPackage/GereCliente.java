@@ -26,7 +26,6 @@ public class GereCliente {
             ppStmt.setString(6, email);
             ppStmt.setInt(7, idMotorista);
             ppStmt.setString(8, tipo);
-            System.out.println("ANDA ONDE NÂO DEVE");
                         
             ppStmt.executeUpdate();
             
@@ -99,10 +98,9 @@ public class GereCliente {
     }
     
     public Cliente pesquisarCliente(String nome, int idMotorista){
-        Cliente cliente= null;
+        Cliente cliente = null;
         try {
             Connection connection = GereBD.getConnection();
-            
             
             String query = "SELECT * FROM cliente WHERE nome = ? and idMotorista = ?";
             PreparedStatement ppStmt = connection.prepareStatement(query);
@@ -132,4 +130,35 @@ public class GereCliente {
         
         return cliente;
     }
+    
+    public boolean atualizarCliente(int id, String nome, String morada, String codigoPostal, int nif, int contacto, String email, String tipo, int idMotorista){
+         boolean result = false;
+         try {
+            Connection connection = GereBD.getConnection();
+  
+            System.out.println("ID:" + id + "\n" + nome + "\n" + morada + "\n" + codigoPostal + "\n" + nif + "\n" + contacto + "\n" + email + "\n" + tipo + "\n" + idMotorista);        
+            String query = "UPDATE cliente SET nome = ?, morada = ?, codigoPostal = ?, nif = ?, contacto = ?, email = ?, tipo = ? WHERE id = ? and idmotorista = ?";
+            PreparedStatement ppStmt = connection.prepareStatement(query);
+            ppStmt.setString(1, nome);
+            ppStmt.setString(2, morada);
+            ppStmt.setString(3, codigoPostal);
+            ppStmt.setInt(4, nif);
+            ppStmt.setInt(5, contacto);
+            ppStmt.setString(6, email);
+            ppStmt.setString(7, tipo);
+            ppStmt.setInt(8, id);
+            ppStmt.setInt(9, idMotorista);
+          
+            ppStmt.executeUpdate();
+            
+            connection.close();
+            result = true;
+        } catch (SQLException ex) {
+            Logger.getLogger(GereCliente.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+         System.out.println("RESULTADO: " + result);
+        return result;
+    }
+    
 }
